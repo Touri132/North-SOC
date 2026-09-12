@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>North SOC — Cybersecurity Operations Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo"><div class="dot"></div>N<span>orth</span></div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#plans">Plans</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#payment">Payment</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-r">
+    <button class="toggle" id="themeBtn" title="Toggle theme"></button>
+    <a href="#payment" class="cta">Get Started</a>
+    <button class="burger" id="burgerBtn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mob-nav" id="mobNav">
+  <a href="#services" onclick="closeMob()">Services</a>
+  <a href="#plans" onclick="closeMob()">Plans</a>
+  <a href="#portfolio" onclick="closeMob()">Portfolio</a>
+  <a href="#payment" onclick="closeMob()">Payment</a>
+  <a href="#why" onclick="closeMob()">Why Us</a>
+  <a href="#contact" onclick="closeMob()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="badge">Security Operations Center · Est. 2025</div>
+  <h1>Defend.<br><em>Detect.</em><br>Respond.</h1>
+  <p class="h-sub">North is your dedicated SOC partner — monitoring threats around the clock, hardening your defenses, and responding before attackers make their move.</p>
+  <div class="btns">
+    <a href="#plans" class="btn-p">View Plans</a>
+    <a href="#portfolio" class="btn-o">See Our Work</a>
+  </div>
+  <div class="stats">
+    <div><div class="stat-n">24/7</div><div class="stat-l">Active Monitoring</div></div>
+    <div><div class="stat-n">&lt;1h</div><div class="stat-l">Response Time</div></div>
+    <div><div class="stat-n">100%</div><div class="stat-l">Confidential</div></div>
+    <div><div class="stat-n">ISO</div><div class="stat-l">Best Practices</div></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="fade">
+    <span class="tag">// What We Do</span>
+    <h2>Security Services</h2>
+    <p class="sub">Core SOC capabilities delivered by a focused analyst — built for small businesses, startups, and individuals who need real protection.</p>
+  </div>
+  <div class="avail-label fade">Available Now</div>
+  <div class="g3 fade" style="margin-bottom:2.5rem">
+    <div class="svc"><div class="svc-icon">🔍</div><h3>Log Monitoring & Analysis</h3><p>Continuous review of system, application, and network logs to identify suspicious patterns before they escalate.</p><span class="svc-tag">Core SOC</span></div>
+    <div class="svc"><div class="svc-icon">🚨</div><h3>Threat Detection & Alerting</h3><p>Real-time detection of intrusion attempts, malware activity, and anomalous behaviour using SIEM rule sets.</p><span class="svc-tag">Detection</span></div>
+    <div class="svc"><div class="svc-icon">📋</div><h3>Incident Reporting</h3><p>Clear, actionable incident reports — what happened, impact level, and exactly what to do next.</p><span class="svc-tag">Reporting</span></div>
+    <div class="svc"><div class="svc-icon">🔐</div><h3>Phishing Analysis</h3><p>Analyze suspicious emails and links, triage phishing attempts, and deliver awareness recommendations.</p><span class="svc-tag">Email Security</span></div>
+    <div class="svc"><div class="svc-icon">🧩</div><h3>OSINT Investigations</h3><p>Open-source intelligence to assess your digital exposure and identify public attack surfaces before attackers do.</p><span class="svc-tag">Intelligence</span></div>
+  </div>
+  <div class="soon-label-row fade">Coming Soon</div>
+  <div class="g3 fade">
+    <div class="svc soon"><div class="svc-icon">🛡️</div><h3>Vulnerability Assessment</h3><p>Identify weaknesses in your infrastructure with structured scans and prioritized remediation guidance.</p><span class="soon-label">Not Available Yet</span></div>
+    <div class="svc soon"><div class="svc-icon">📡</div><h3>Network Traffic Review</h3><p>Review firewall logs and network flow data to catch lateral movement, data exfiltration, and C2 beacons.</p><span class="soon-label">Not Available Yet</span></div>
+    <div class="svc soon"><div class="svc-icon">📊</div><h3>SIEM Dashboard Setup</h3><p>Configure Splunk, Wazuh, or Elastic dashboards so you have real-time visibility into your environment.</p><span class="soon-label">Not Available Yet</span></div>
+    <div class="svc soon"><div class="svc-icon">📝</div><h3>Security Policy Drafting</h3><p>Draft security policies and procedures aligned with frameworks like NIST and ISO 27001.</p><span class="soon-label">Not Available Yet</span></div>
+    <div class="svc soon"><div class="svc-icon">🔬</div><h3>Malware Analysis</h3><p>Static and dynamic analysis of suspicious files in an isolated sandbox environment.</p><span class="soon-label">Not Available Yet</span></div>
+    <div class="svc soon"><div class="svc-icon">🕵️</div><h3>Threat Hunting</h3><p>Proactive hunting for hidden adversaries already inside your environment before they cause damage.</p><span class="soon-label">Not Available Yet</span></div>
+  </div>
+</section>
+
+<!-- PLANS -->
+<section id="plans">
+  <div class="fade">
+    <span class="tag">// Pricing</span>
+    <h2>Choose Your Plan</h2>
+    <p class="sub">Transparent pricing, no hidden fees. Cancel anytime.</p>
+  </div>
+  <div class="plans fade">
+    <div class="plan">
+      <div class="plan-name">Starter</div>
+      <div class="plan-desc">For individuals and micro businesses getting started with security.</div>
+      <div class="plan-price"><sup>$</sup>49</div>
+      <div class="plan-period">per month</div>
+      <ul class="plan-feat">
+        <li>Log monitoring (up to 3 sources)</li>
+        <li>Weekly threat summary report</li>
+        <li>Phishing email triage (5/mo)</li>
+        <li>1 vulnerability scan/month</li>
+        <li>Email support</li>
+        <li class="off">Incident response support</li>
+        <li class="off">Custom SIEM dashboards</li>
+        <li class="off">Policy drafting</li>
+      </ul>
+      <button class="pbtn pbtn-out" onclick="pickPlan('Starter — $49/mo')">Select Plan</button>
+    </div>
+    <div class="plan hot">
+      <span class="plan-badge">Popular</span>
+      <div class="plan-name">Professional</div>
+      <div class="plan-desc">For small businesses needing consistent protection and fast response.</div>
+      <div class="plan-price"><sup>$</sup>149</div>
+      <div class="plan-period">per month</div>
+      <ul class="plan-feat">
+        <li>Log monitoring (up to 10 sources)</li>
+        <li>Daily threat summary report</li>
+        <li>Phishing email triage (unlimited)</li>
+        <li>2 vulnerability scans/month</li>
+        <li>Priority email + chat support</li>
+        <li>Incident response support</li>
+        <li>Basic SIEM dashboard setup</li>
+        <li class="off">Full policy drafting suite</li>
+      </ul>
+      <button class="pbtn pbtn-fill" onclick="pickPlan('Professional — $149/mo')">Select Plan</button>
+    </div>
+    <div class="plan">
+      <div class="plan-name">Enterprise</div>
+      <div class="plan-desc">For growing companies that need comprehensive SOC coverage.</div>
+      <div class="plan-price"><sup>$</sup>349</div>
+      <div class="plan-period">per month</div>
+      <ul class="plan-feat">
+        <li>Unlimited log source monitoring</li>
+        <li>Real-time alerting & response</li>
+        <li>Phishing triage (unlimited)</li>
+        <li>Weekly vulnerability scans</li>
+        <li>24/7 priority support</li>
+        <li>Full incident response</li>
+        <li>Custom SIEM dashboards</li>
+        <li>Full policy & compliance drafting</li>
+      </ul>
+      <button class="pbtn pbtn-out" onclick="pickPlan('Enterprise — $349/mo')">Select Plan</button>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="fade">
+    <span class="tag">// Portfolio</span>
+    <h2>Real Projects. Real Skills.</h2>
+    <p class="sub">Every project was built using professional SOC tools and methodologies. Click any card to see the full breakdown — tools, steps, code, and results.</p>
+  </div>
+  <div class="pf-filters fade">
+    <button class="pff on" onclick="filterPF('all',this)">All</button>
+    <button class="pff" onclick="filterPF('siem',this)">SIEM & Monitoring</button>
+    <button class="pff" onclick="filterPF('threat',this)">Threat Analysis</button>
+    <button class="pff" onclick="filterPF('osint',this)">OSINT</button>
+    <button class="pff" onclick="filterPF('forensics',this)">Forensics</button>
+    <button class="pff" onclick="filterPF('tools',this)">Tools & Scripts</button>
+  </div>
+  <div class="pf-grid fade" id="pfGrid">
+    <div class="pf-card" data-cat="siem" onclick="openPF(0)">
+      <div class="pf-top" style="background:linear-gradient(135deg,#10121a,#1a1f35)">
+        <div class="pf-icon">🖥️</div>
+        <div class="pf-bs"><span class="pf-b blue">SIEM</span><span class="pf-b green">Live Lab</span></div>
+      </div>
+      <div class="pf-body">
+        <div class="pf-num">01</div>
+        <div class="pf-title">Home SOC Lab — Wazuh SIEM Deployment</div>
+        <div class="pf-desc">Built a fully functional SOC on a $12/month VPS. Deployed Wazuh, connected agents, configured 40+ detection rules, and built real-time dashboards — now used for actual North SOC clients.</div>
+        <div class="pf-tags"><span>Wazuh</span><span>Ubuntu</span><span>SIEM</span><span>Detection Rules</span></div>
+        <div class="pf-foot"><span class="pf-status live">● Live Environment</span><span class="pf-arr">View →</span></div>
+      </div>
+    </div>
+    <div class="pf-card" data-cat="threat" onclick="openPF(1)">
+      <div class="pf-top" style="background:linear-gradient(135deg,#1a0a0e,#2a1015)">
+        <div class="pf-icon">🎣</div>
+        <div class="pf-bs"><span class="pf-b red">Phishing</span><span class="pf-b orange">Analysis</span></div>
+      </div>
+      <div class="pf-body">
+        <div class="pf-num">02</div>
+        <div class="pf-title">Phishing Campaign Analysis — 50 Real Samples</div>
+        <div class="pf-desc">Analyzed 50 verified phishing emails from PhishTank. Extracted headers, decoded obfuscated URLs, traced sender infrastructure, and produced a consolidated report with 120+ IOCs.</div>
+        <div class="pf-tags"><span>Email Headers</span><span>IOC Extraction</span><span>PhishTank</span><span>Reporting</span></div>
+        <div class="pf-foot"><span class="pf-status done">● Completed</span><span class="pf-arr">View →</span></div>
+      </div>
+    </div>
+    <div class="pf-card" data-cat="osint" onclick="openPF(2)">
+      <div class="pf-top" style="background:linear-gradient(135deg,#0a1020,#0e1a30)">
+        <div class="pf-icon">🕵️</div>
+        <div class="pf-bs"><span class="pf-b blue">OSINT</span><span class="pf-b purple">Research</span></div>
+      </div>
+      <div class="pf-body">
+        <div class="pf-num">03</div>
+        <div class="pf-title">Corporate Attack Surface Assessment</div>
+        <div class="pf-desc">Mapped the complete digital attack surface of a fictional company using free tools. Found exposed subdomains, leaked credentials, open services, and social engineering targets — all legally.</div>
+        <div class="pf-tags"><span>Maltego</span><span>Shodan</span><span>theHarvester</span><span>WHOIS</span></div>
+        <div class="pf-foot"><span class="pf-status done">● Completed</span><span class="pf-arr">View →</span></div>
+      </div>
+    </div>
+    <div class="pf-card" data-cat="threat" onclick="openPF(3)">
+      <div class="pf-top" style="background:linear-gradient(135deg,#0f0a1a,#1a1030)">
+        <div class="pf-icon">🦠</div>
+        <div class="pf-bs"><span class="pf-b purple">Malware</span><span class="pf-b orange">Analysis</span></div>
+      </div>
+      <div class="pf-body">
+        <div class="pf-num">04</div>
+        <div class="pf-title">Malware Analysis Report — Ransomware Dissection</div>
+        <div class="pf-desc">Static and dynamic analysis of a ransomware sample in an isolated sandbox. Documented behavior, network IOCs, registry changes, and mapped 12 MITRE ATT&CK techniques. Wrote a custom YARA rule.</div>
+        <div class="pf-tags"><span>ANY.RUN</span><span>VirusTotal</span><span>YARA</span><span>Sandbox</span></div>
+        <div class="pf-foot"><span class="pf-status done">● Completed</span><span class="pf-arr">View →</span></div>
+      </div>
+    </div>
+    <div class="pf-card" data-cat="forensics" onclick="openPF(4)">
+      <div class="pf-top" style="background:linear-gradient(135deg,#0a1a10,#0e2018)">
+        <div class="pf-icon">🔍</div>
+        <div class="pf-bs"><span class="pf-b green">Forensics</span><span class="pf-b blue">DFIR</span></div>
+      </div>
+      <div class="pf-body">
+        <div class="pf-num">05</div>
+        <div class="pf-title">Incident Response — Compromised Server Investigation</div>
+        <div class="pf-desc">Investigated a simulated Windows server compromise. Identified initial access vector, attacker tools, lateral movement path, and data accessed. Produced a full incident report with a 10-event timeline.</div>
+        <div class="pf-tags"><span>Windows Forensics</span><span>Autopsy</span><span>Volatility</span><span>Event Logs</span></div>
+        <div class="pf-foot"><span class="pf-status done">● Completed</span><span class="pf-arr">View →</span></div>
+      </div>
+    </div>
+    <div class="pf-card" data-cat="tools" onclick="openPF(5)">
+      <div class="pf-top" style="background:linear-gradient(135deg,#1a1500,#28200a)">
+        <div class="pf-icon">🐍</div>
+        <div class="pf-bs"><span class="pf-b gold">Python</span><span class="pf-b green">Open Source</span></div>
+      </div>
+      <div class="pf-body">
+        <div class="pf-num">06</div>
+        <div class="pf-title">IOC Checker — Python Security Automation Tool</div>
+        <div class="pf-desc">Python CLI tool that takes IPs, domains, or hashes and simultaneously queries VirusTotal, AbuseIPDB, and Shodan — returning a color-coded threat report in seconds. Published on GitHub.</div>
+        <div class="pf-tags"><span>Python</span><span>VirusTotal API</span><span>AbuseIPDB</span><span>Automation</span></div>
+        <div class="pf-foot"><span class="pf-status live">● Open Source</span><span class="pf-arr">View →</span></div>
+      </div>
+    </div>
+    <div class="pf-card" data-cat="siem" onclick="openPF(6)">
+      <div class="pf-top" style="background:linear-gradient(135deg,#001520,#002030)">
+        <div class="pf-icon">📡</div>
+        <div class="pf-bs"><span class="pf-b blue">Network</span><span class="pf-b red">Threat Hunt</span></div>
+      </div>
+      <div class="pf-body">
+        <div class="pf-num">07</div>
+        <div class="pf-title">Network Traffic Threat Hunt — PCAP Analysis</div>
+        <div class="pf-desc">Analyzed a 2GB network capture file. Found C2 beaconing, DNS tunneling, and a lateral movement scan hidden inside normal-looking traffic using Wireshark and Zeek.</div>
+        <div class="pf-tags"><span>Wireshark</span><span>Zeek</span><span>tshark</span><span>C2 Detection</span></div>
+        <div class="pf-foot"><span class="pf-status done">● Completed</span><span class="pf-arr">View →</span></div>
+      </div>
+    </div>
+    <div class="pf-card" data-cat="threat" onclick="openPF(7)">
+      <div class="pf-top" style="background:linear-gradient(135deg,#1a0a00,#2a1500)">
+        <div class="pf-icon">🎯</div>
+        <div class="pf-bs"><span class="pf-b orange">CTF</span><span class="pf-b red">TryHackMe</span></div>
+      </div>
+      <div class="pf-body">
+        <div class="pf-num">08</div>
+        <div class="pf-title">TryHackMe SOC Level 1 — Full Path Completion</div>
+        <div class="pf-desc">Completed all 60+ rooms in TryHackMe's SOC Level 1 path — covering SIEM, threat intelligence, phishing analysis, endpoint monitoring, and incident response. Official certificate earned.</div>
+        <div class="pf-tags"><span>MITRE ATT&CK</span><span>Splunk</span><span>ELK</span><span>Threat Intel</span></div>
+        <div class="pf-foot"><span class="pf-status live">● Certified</span><span class="pf-arr">View →</span></div>
+      </div>
+    </div>
+    <div class="pf-card" data-cat="tools" onclick="openPF(8)">
+      <div class="pf-top" style="background:linear-gradient(135deg,#001a1a,#002828)">
+        <div class="pf-icon">📊</div>
+        <div class="pf-bs"><span class="pf-b teal">Dashboard</span><span class="pf-b blue">Splunk</span></div>
+      </div>
+      <div class="pf-body">
+        <div class="pf-num">09</div>
+        <div class="pf-title">Splunk Security Dashboard — SMB Monitoring Template</div>
+        <div class="pf-desc">Designed a Splunk dashboard built specifically for non-technical business owners. Shows login anomalies, geographic access maps, failed auth trends, and phishing alerts in plain language.</div>
+        <div class="pf-tags"><span>Splunk SPL</span><span>Dashboards</span><span>Alert Rules</span><span>SMB</span></div>
+        <div class="pf-foot"><span class="pf-status live">● Client-Ready</span><span class="pf-arr">View →</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECT MODAL -->
+<div class="pm-overlay" id="pmOverlay" onclick="closePF()"></div>
+<div class="pm-modal" id="pmModal">
+  <div class="pm-hdr">
+    <div class="pm-top">
+      <span class="pm-num" id="pmNum"></span>
+      <button class="pm-close" onclick="closePF()">✕</button>
+    </div>
+    <div class="pm-title" id="pmTitle"></div>
+    <div class="pm-tag-row" id="pmTags"></div>
+  </div>
+  <div class="pm-body" id="pmBody"></div>
+</div>
+
+<!-- PAYMENT -->
+<section id="payment">
+  <div class="fade" style="text-align:center;margin-bottom:2.2rem">
+    <span class="tag">// Checkout</span>
+    <h2>Secure Payment</h2>
+    <p class="sub" style="margin:0 auto">Transactions are encrypted end-to-end. We accept all major payment methods.</p>
+  </div>
+  <div class="pay-wrap fade">
+    <div style="margin-bottom:1.3rem">
+      <label>Selected Plan</label>
+      <input type="text" id="selPlan" value="Professional — $149/mo" readonly style="background:var(--bg3);cursor:default"/>
+    </div>
+    <div class="pay-tabs">
+      <button class="ptab on" onclick="switchTab('card',this)">💳 Card</button>
+      <button class="ptab" onclick="switchTab('paypal',this)">🅿 PayPal</button>
+      <button class="ptab" onclick="switchTab('apple',this)">🍎 Apple Pay</button>
+      <button class="ptab" onclick="switchTab('bank',this)">🏦 Bank</button>
+    </div>
+    <!-- CARD -->
+    <div class="panel on" id="tab-card">
+      <label style="margin-bottom:.5rem">Accepted Cards</label>
+      <div class="card-row">
+        <div class="cicon sel" onclick="selCard(this)">VISA</div>
+        <div class="cicon" onclick="selCard(this)">MC</div>
+        <div class="cicon" onclick="selCard(this)">AMEX</div>
+        <div class="cicon" onclick="selCard(this)">DISCOVER</div>
+        <div class="cicon" onclick="selCard(this)">MADA</div>
+        <div class="cicon" onclick="selCard(this)">UNION PAY</div>
+      </div>
+      <div class="frow full"><div><label>Cardholder Name</label><input type="text" placeholder="Your full name"/></div></div>
+      <div class="frow full"><div><label>Card Number</label><input type="text" placeholder="1234 5678 9012 3456" maxlength="19" oninput="fmtCard(this)"/></div></div>
+      <div class="frow">
+        <div><label>Expiry</label><input type="text" placeholder="MM / YY" maxlength="7" oninput="fmtExp(this)"/></div>
+        <div><label>CVV</label><input type="text" placeholder="•••" maxlength="4"/></div>
+      </div>
+      <div class="frow full"><div><label>Email</label><input type="email" placeholder="you@email.com"/></div></div>
+      <button class="paybtn" onclick="doPayment()">🔒 Pay Now</button>
+      <div class="secure">All payments encrypted with 256-bit SSL. We never store card data.</div>
+    </div>
+    <!-- PAYPAL -->
+    <div class="panel" id="tab-paypal">
+      <div class="alt">
+        <p>You'll be securely redirected to PayPal to complete your payment. No account required.</p>
+        <button class="altbtn" onclick="doPayment()">Continue with PayPal →</button>
+      </div>
+    </div>
+    <!-- APPLE PAY -->
+    <div class="panel" id="tab-apple">
+      <div class="alt">
+        <p>Use Apple Pay for fast, secure checkout on Safari with Touch ID or Face ID.</p>
+        <button class="altbtn" onclick="doPayment()"> Pay with Apple Pay</button>
+      </div>
+    </div>
+    <!-- BANK -->
+    <div class="panel" id="tab-bank">
+      <div class="alt">
+        <p>We'll send you an invoice with full banking instructions within 24 hours.</p>
+        <div style="width:100%;display:flex;flex-direction:column;gap:.8rem">
+          <div><label>Full Name</label><input type="text" placeholder="Your name"/></div>
+          <div><label>Email</label><input type="email" placeholder="you@email.com"/></div>
+          <div><label>Company (optional)</label><input type="text" placeholder="Your company"/></div>
+        </div>
+        <button class="altbtn" onclick="doPayment()">Request Bank Invoice →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY NORTH -->
+<section id="why">
+  <div class="fade">
+    <span class="tag">// Why North</span>
+    <h2>Built Different</h2>
+    <p class="sub">We're not a faceless corporation. We're a focused analyst who takes your security personally.</p>
+  </div>
+  <div class="g2 fade">
+    <div class="why-c"><div class="wi">🧠</div><div><h3>Analyst-First Approach</h3><p>Every finding is manually reviewed by a human analyst — no automated noise, no false positives drowning real alerts.</p></div></div>
+    <div class="why-c"><div class="wi">⚡</div><div><h3>Fast Response Times</h3><p>Under 1-hour response to critical alerts. We treat your incidents as if they were our own systems under fire.</p></div></div>
+    <div class="why-c"><div class="wi">💬</div><div><h3>Plain Language Reports</h3><p>No jargon. Every report explains what happened, why it matters, and exactly what to do next.</p></div></div>
+    <div class="why-c"><div class="wi">🔒</div><div><h3>Full Confidentiality</h3><p>NDAs on request. Your data, incidents, vulnerabilities — stay strictly between us.</p></div></div>
+    <div class="why-c"><div class="wi">📈</div><div><h3>Grows With You</h3><p>Start Starter, scale to Enterprise. No long contracts — upgrade or downgrade anytime.</p></div></div>
+    <div class="why-c"><div class="wi">🌐</div><div><h3>Remote-First Coverage</h3><p>Fully remote SOC. We cover your environment regardless of where your servers or team are located.</p></div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-g fade">
+    <div>
+      <span class="tag">// Get In Touch</span>
+      <h2>Let's Talk Security</h2>
+      <p class="sub" style="margin-bottom:1.8rem">Have questions before subscribing? We respond within a few hours.</p>
+      <div class="cd"><span>📧</span><span>hello@northsoc.io</span></div>
+      <div class="cd"><span>💬</span><span>Live chat — Mon to Sat</span></div>
+      <div class="cd"><span>📍</span><span>Remote — Serving Clients Worldwide</span></div>
+      <div class="cd"><span>🕐</span><span>Response within 4 business hours</span></div>
+    </div>
+    <div class="cform">
+      <div><label>Full Name</label><input type="text" placeholder="Your name"/></div>
+      <div><label>Email</label><input type="email" placeholder="you@company.com"/></div>
+      <div><label>Subject</label>
+        <select>
+          <option>General Inquiry</option>
+          <option>Plan Question</option>
+          <option>Custom Quote</option>
+          <option>Technical Support</option>
+          <option>Partnership</option>
+        </select>
+      </div>
+      <div><label>Message</label><textarea placeholder="Tell us about your security needs..."></textarea></div>
+      <button class="btn-p" style="align-self:flex-start;border:none;cursor:pointer" onclick="doContact()">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<!-- LEGAL MODAL -->
+<div class="leg-overlay" id="legOverlay" onclick="closeLeg()"></div>
+<div class="leg-modal" id="legModal">
+  <div class="leg-hdr">
+    <div class="leg-ht"><div class="leg-dot"></div><span class="leg-title" id="legTitle"></span></div>
+    <button class="leg-close" onclick="closeLeg()">✕</button>
+  </div>
+  <div class="leg-body" id="legBody"></div>
+</div>
+
+<!-- COOKIE BANNER -->
+<div class="cookie-bar" id="cookieBar">
+  <div>
+    <div style="font-family:var(--head);font-size:.88rem;font-weight:700;margin-bottom:.25rem">🍪 We use cookies</div>
+    <div class="ck-txt">We use essential cookies to keep the site working and optional analytics cookies to understand how you use it. <a href="#" onclick="openLeg('cookies');return false" style="color:var(--red);text-decoration:underline">Manage preferences</a></div>
+  </div>
+  <div class="ck-btns">
+    <button class="ck-ess" onclick="acceptCookies('essential')">Essential Only</button>
+    <button class="ck-all" onclick="acceptCookies('all')">Accept All</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><span id="toastMsg"></span></div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="flogo">N<span>orth</span> SOC</div>
+  <ul class="flinks">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#plans">Plans</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#" onclick="openLeg('tos');return false">Terms of Service</a></li>
+    <li><a href="#" onclick="openLeg('privacy');return false">Privacy Policy</a></li>
+    <li><a href="#" onclick="openLeg('cookies');return false">Cookie Settings</a></li>
+  </ul>
+  <div class="fcopy">© 2025 North Security Operations Center</div>
+</footer>
+
+
+<script src="script.js"></script>
+</body>
+</html>
