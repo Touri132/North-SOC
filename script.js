@@ -7,6 +7,22 @@
    - Theme / nav / filters → edit the individual functions
    ============================================================ */
 
+// ── INIT — force correct state on load ─────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  // Ensure Card tab is active
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.ptab').forEach(b => b.classList.remove('on'));
+  const cardPanel = document.getElementById('tab-card');
+  const cardBtn   = document.querySelector('.ptab');
+  if(cardPanel) cardPanel.classList.add('on');
+  if(cardBtn)   cardBtn.classList.add('on');
+  // Ensure scroll fade works for elements already in viewport
+  document.querySelectorAll('.fade').forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if(rect.top < window.innerHeight) el.classList.add('on');
+  });
+});
+
 // ── THEME ──────────────────────────────────────────────────────────────────
 document.getElementById('themeBtn').addEventListener('click',()=>{
   const h=document.documentElement;
