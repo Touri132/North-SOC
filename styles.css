@@ -257,3 +257,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.6rem 5
   .stats{gap:1.4rem}
   .plans,.pf-grid,.g2,.g3{grid-template-columns:1fr}
 }
+
+/* WHATSAPP BUTTON */
+.wa-btn{display:inline-flex;align-items:center;gap:.7rem;background:#25D366;color:#fff;padding:.75rem 1.5rem;border-radius:var(--r);font-family:var(--mono);font-size:.82rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin-top:.5rem;transition:background var(--t),box-shadow var(--t),transform .15s;width:fit-content}
+.wa-btn:hover{background:#1ebe5d;box-shadow:0 0 24px rgba(37,211,102,.35);transform:translateY(-2px)}
