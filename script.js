@@ -40,6 +40,48 @@ function fmtExp(el){
   el.value=v;
 }
 
+// ══════════════════════════════════════════════════════════════════════════
+// ⚙️  NORTH SOC — CONFIGURATION
+//     Edit these values to update your business info across the whole site
+// ══════════════════════════════════════════════════════════════════════════
+const CONFIG = {
+
+  // ── Your WhatsApp number (international format, no + or spaces) ──────────
+  // Example: Morocco 212 + your number without leading 0
+  // e.g. if your number is 0612345678 → write "212612345678"
+  whatsapp: 'YOUR_WHATSAPP_NUMBER',   // ← REPLACE THIS
+
+  // ── Your email ────────────────────────────────────────────────────────────
+  email: 'north.soc.info@gmail.com',
+
+  // ── Payment links — paste your real links here after setup ───────────────
+  // How to get these links:
+  //   PayPal  → paypal.com → Pay & Get Paid → Payment Buttons → Create
+  //   Wise    → wise.com   → Account → Payment Links → Create
+  //   Payoneer→ payoneer.com → Request Payment → Copy Link
+  payments: {
+    starter:      'https://www.paypal.com/ncp/payment/YOUR_STARTER_LINK',      // $49/mo
+    professional: 'https://www.paypal.com/ncp/payment/YOUR_PRO_LINK',          // $149/mo
+    enterprise:   'https://www.paypal.com/ncp/payment/YOUR_ENTERPRISE_LINK',   // $349/mo
+    paypal:       'https://www.paypal.com/ncp/payment/YOUR_PAYPAL_LINK',
+    wise:         'https://wise.com/pay/YOUR_WISE_LINK',
+    bank:         'mailto:north.soc.info@gmail.com?subject=Bank Transfer Request&body=I would like to pay by bank transfer. My selected plan is: ',
+  },
+
+  // ── Formspree endpoint — paste your form ID after signing up ─────────────
+  // How to get this:
+  //   1. Go to formspree.io → sign up free
+  //   2. Click "New Form" → name it "North SOC Contact"
+  //   3. Copy the endpoint URL e.g. https://formspree.io/f/abcdefgh
+  //   4. Paste it below (replace the placeholder)
+  formspree: 'https://formspree.io/f/YOUR_FORM_ID',  // ← REPLACE THIS
+
+  // ── WhatsApp message sent after payment ───────────────────────────────────
+  whatsappMsg: (plan) =>
+    `Hello North SOC! I just completed payment for the ${plan}. Please confirm my subscription and let me know the next steps. Thank you!`,
+};
+// ══════════════════════════════════════════════════════════════════════════
+
 // ── PLANS ──────────────────────────────────────────────────────────────────
 function pickPlan(plan){
   document.getElementById('selPlan').value=plan;
@@ -47,9 +89,98 @@ function pickPlan(plan){
   toast('Plan selected: '+plan);
 }
 
-// ── PAYMENT & CONTACT ──────────────────────────────────────────────────────
-function doPayment(){toast('Redirecting to secure checkout...')}
-function doContact(){toast("Message sent! We'll reply within 4 hours.")}
+// ── PAYMENT ────────────────────────────────────────────────────────────────
+function doPayment(){
+  const plan = document.getElementById('selPlan').value;
+  const activeTab = document.querySelector('.ptab.on')?.textContent?.trim() || '';
+
+  // Determine which payment link to use
+  let payUrl = '';
+  if(activeTab.includes('PayPal')){
+    payUrl = CONFIG.payments.paypal;
+  } else if(activeTab.includes('Apple')){
+    toast('Apple Pay coming soon — redirecting to PayPal instead...');
+    setTimeout(()=>{ window.open(CONFIG.payments.paypal,'_blank'); afterPayment(plan); },1500);
+    return;
+  } else if(activeTab.includes('Bank')){
+    payUrl = CONFIG.payments.bank + encodeURIComponent(plan);
+    window.location.href = payUrl;
+    toast('Opening email for bank transfer request...');
+    return;
+  } else {
+    // Card tab — detect plan from selector
+    if(plan.includes('Starter'))      payUrl = CONFIG.payments.starter;
+    else if(plan.includes('Profess')) payUrl = CONFIG.payments.professional;
+    else if(plan.includes('Enter'))   payUrl = CONFIG.payments.enterprise;
+    else payUrl = CONFIG.payments.professional; // default
+  }
+
+  // Show loading toast, open payment page, then redirect to WhatsApp
+  toast('Redirecting to secure checkout...');
+  setTimeout(()=>{
+    window.open(payUrl,'_blank');
+    afterPayment(plan);
+  }, 800);
+}
+
+// ── AFTER PAYMENT — redirect to WhatsApp ───────────────────────────────────
+function afterPayment(plan){
+  const msg  = encodeURIComponent(CONFIG.whatsappMsg(plan));
+  const waUrl = `https://wa.me/${CONFIG.whatsapp}?text=${msg}`;
+  setTimeout(()=>{
+    toast('Payment opened! Connecting you to WhatsApp...');
+    setTimeout(()=>{ window.open(waUrl,'_blank'); }, 1500);
+  }, 2000);
+}
+
+// ── CONTACT FORM — sends to Gmail via Formspree ────────────────────────────
+async function doContact(){
+  const form = document.getElementById('contactForm');
+  const name    = form.querySelector('#cName').value.trim();
+  const email   = form.querySelector('#cEmail').value.trim();
+  const subject = form.querySelector('#cSubject').value;
+  const message = form.querySelector('#cMessage').value.trim();
+
+  if(!name || !email || !message){
+    toast('Please fill in all fields.');
+    return;
+  }
+
+  const btn = form.querySelector('.send-btn');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch(CONFIG.formspree, {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body: JSON.stringify({ name, email, subject, message,
+        _subject: `North SOC — ${subject} from ${name}` })
+    });
+
+    if(res.ok){
+      toast('Message sent! We\'ll reply within 2 business days.');
+      form.reset();
+      // Also open WhatsApp as backup
+      const waMsg = encodeURIComponent(
+        `Hi North SOC! I just sent a contact form message. Subject: ${subject}. Name: ${name}`
+      );
+      setTimeout(()=>{
+        window.open(`https://wa.me/${CONFIG.whatsapp}?text=${waMsg}`,'_blank');
+      }, 2000);
+    } else {
+      throw new Error('Form submission failed');
+    }
+  } catch(err) {
+    // Fallback: open Gmail compose
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&to=${CONFIG.email}&su=${encodeURIComponent('North SOC — '+subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
+    window.open(gmailUrl,'_blank');
+    toast('Opening Gmail as backup...');
+  } finally {
+    btn.textContent = 'Send Message →';
+    btn.disabled = false;
+  }
+}
 
 // ── TOAST ──────────────────────────────────────────────────────────────────
 function toast(msg){
@@ -202,12 +333,12 @@ const legContent={
     <div class="leg-h2">8. Governing Law</div>
     <p class="leg-p">These Terms are governed by the laws of the Kingdom of Morocco. Disputes shall be resolved through good-faith negotiation, and if unresolved, by the competent courts in Morocco.</p>
     <div class="leg-h2">9. Contact</div>
-    <p class="leg-p">For questions: <strong>hello@northsoc.io</strong></p>
+    <p class="leg-p">For questions: <strong>north.soc.info@gmail.com</strong></p>
   `},
   privacy:{title:'Privacy Policy',html:`
     <p class="leg-p" style="font-size:.72rem;color:var(--muted)">Last updated: May 2025</p>
     <div class="leg-h2">1. Who We Are</div>
-    <p class="leg-p">North Security Operations Center operates northsoc.io and provides cybersecurity services. Contact: <strong>hello@northsoc.io</strong></p>
+    <p class="leg-p">North Security Operations Center operates northsoc.io and provides cybersecurity services. Contact: <strong>north.soc.info@gmail.com</strong></p>
     <div class="leg-h2">2. Data We Collect</div>
     <table class="leg-tbl"><tr><th>Type</th><th>Data</th><th>Purpose</th></tr>
     <tr><td>Contact</td><td>Name, email, company</td><td>To respond and deliver services</td></tr>
@@ -219,11 +350,11 @@ const legContent={
     <div class="leg-h2">4. Data Sharing</div>
     <p class="leg-p">We share data only with: Stripe/PayPal (payments), cloud hosting providers (servers), and email providers (communications). All are bound by confidentiality agreements.</p>
     <div class="leg-h2">5. Your Rights</div>
-    <p class="leg-p">You have the right to access, correct, delete, and export your data. Email <strong>hello@northsoc.io</strong> — we respond within 30 days.</p>
+    <p class="leg-p">You have the right to access, correct, delete, and export your data. Email <strong>north.soc.info@gmail.com</strong> — we respond within 30 days.</p>
     <div class="leg-h2">6. Data Retention</div>
     <p class="leg-p">Client data is retained for the duration of the contract plus 3 years for legal purposes. Contact form submissions are retained for 12 months.</p>
     <div class="leg-h2">7. Contact</div>
-    <p class="leg-p">Privacy inquiries: <strong>hello@northsoc.io</strong></p>
+    <p class="leg-p">Privacy inquiries: <strong>north.soc.info@gmail.com</strong></p>
   `},
   cookies:{title:'Cookie Settings',html:`
     <div class="leg-h2">What Are Cookies?</div>
@@ -286,3 +417,9 @@ if(localStorage.getItem('northCookies')){
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){closePF();closeLeg();}
 });
+
+// ── OPEN WHATSAPP ───────────────────────────────────────────────────────────
+function openWhatsApp(msg){
+  const text = msg || 'Hi North SOC! I found your website and I have a question about your security services.';
+  window.open(`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(text)}`, '_blank');
+}
