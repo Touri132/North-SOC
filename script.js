@@ -43,7 +43,7 @@ const CONFIG = {
 
   // Formspree endpoint for the contact form (sign up free at formspree.io,
   // create a form, and paste the link it gives you here)
-  formspree: 'https://formspree.io/f/YOUR_FORM_ID',
+  formspree: 'https://formspree.io/f/mwlprwzv',
 };
 
 
