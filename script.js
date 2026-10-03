@@ -1,3 +1,4 @@
+
 /* =========================================================================
    NORTH SOC — script.js
    =========================================================================
@@ -28,24 +29,61 @@ const CONFIG = {
   email: 'north.soc.info@gmail.com',
 
   // ---------------------------------------------------------------------
-  // PAYMENT LINKS — replace these 3 placeholders with your real PayPal
-  // links. See the "HOW TO SET UP REAL PAYMENTS" guide in the chat
-  // reply for exact steps. Both the Card tab and the PayPal tab on the
-  // website use these same 3 links — PayPal's own checkout page already
-  // lets a customer choose "pay by card as a guest" OR "log in to PayPal",
-  // so one link per plan is all you need.
+  // PAYMENT LINKS — Payoneer.
+  //
+  // In your Payoneer account go to:  Get Paid  ->  Payment Links
+  // (NOT "Request a Payment" — that one is per-client invoicing and
+  // can't be used as a website checkout link).
+  //
+  // For each plan, create a REUSABLE link (not single-use) so the same
+  // link can be used by more than one customer. Paste the 6 links below
+  // — one Monthly and one Annual link per plan, 3 x 2 = 6 total.
+  //
+  // Note: Payoneer's reusable links let a customer pay once per visit;
+  // they do not automatically re-charge the customer every month on
+  // their own the way a dedicated "subscription" button does. Until you
+  // confirm true auto-recurring billing is available on your account,
+  // plan on the customer (or you, manually) re-using the link each
+  // billing period — the WhatsApp message sent after payment is a
+  // built-in reminder trigger for that.
   // ---------------------------------------------------------------------
   payments: {
-    starter:      'https://www.paypal.com/ncp/payment/YOUR_STARTER_LINK',      // $150/mo
-    professional: 'https://www.paypal.com/ncp/payment/YOUR_PROFESSIONAL_LINK', // $350/mo
-    enterprise:   'https://www.paypal.com/ncp/payment/YOUR_ENTERPRISE_LINK',   // $700/mo
+    monthly: {
+      starter:      'https://payoneer.com/YOUR_STARTER_MONTHLY_LINK',      // $150/mo
+      professional: 'https://payoneer.com/YOUR_PROFESSIONAL_MONTHLY_LINK', // $350/mo
+      enterprise:   'https://payoneer.com/YOUR_ENTERPRISE_MONTHLY_LINK',   // $700/mo
+    },
+    annual: {
+      starter:      'https://payoneer.com/YOUR_STARTER_ANNUAL_LINK',       // $1,500/yr ($125/mo)
+      professional: 'https://payoneer.com/YOUR_PROFESSIONAL_ANNUAL_LINK',  // $3,500/yr ($292/mo)
+      enterprise:   'https://payoneer.com/YOUR_ENTERPRISE_ANNUAL_LINK',    // $7,000/yr ($583/mo)
+    },
   },
 
   // Formspree endpoint for the contact form (sign up free at formspree.io,
   // create a form, and paste the link it gives you here)
-   
-  formspree: "https://formspree.io/f/mwlprwzv",
+  formspree: 'https://formspree.io/f/mwlprwzv',
 };
+
+// ---------------------------------------------------------------------
+// PLAN INFO — name + price at both billing cycles, used to build the
+// "Selected Plan" text and to look up the right payment link. Annual
+// prices below assume "2 months free" (~17% off) — change the numbers
+// here any time, they don't need to match a formula.
+// ---------------------------------------------------------------------
+const PLAN_INFO = {
+  starter:      { name: 'Starter',      monthly: 150, annual: 125 },
+  professional: { name: 'Professional', monthly: 350, annual: 292 },
+  enterprise:   { name: 'Enterprise',   monthly: 700, annual: 583 },
+};
+
+// Tracks which billing cycle is currently selected on the Plans section.
+// Starts on 'monthly'; toggleBilling() flips it.
+let billingCycle = 'monthly';
+
+// Tracks which plan the customer last clicked "Select Plan" on, so
+// startPayment() knows which Payoneer link to open.
+let selectedPlanKey = 'professional';
 
 
 
@@ -78,14 +116,51 @@ function closeMobileMenu() {
    ========================================================================= */
 
 // Called when a "Select Plan" button is clicked on the Plans section.
-// It fills in the payment box and scrolls down to it.
-function selectPlan(planText) {
+// Takes a plan key ('starter' / 'professional' / 'enterprise'), builds the
+// display text from PLAN_INFO + the current billing cycle, fills in the
+// payment box, and scrolls down to it.
+function selectPlan(planKey) {
+  selectedPlanKey = planKey;
+  const plan = PLAN_INFO[planKey];
+  const price = billingCycle === 'annual' ? plan.annual : plan.monthly;
+  const cycleLabel = billingCycle === 'annual' ? '/mo, billed annually' : '/mo';
+  const planText = plan.name + ' — $' + price + cycleLabel;
+
   document.getElementById('selectedPlanField').value = planText;
   document.getElementById('payment').scrollIntoView({ behavior: 'smooth' });
   showToast('Plan selected: ' + planText);
 }
 
-// Switches between the "Card" tab and the "PayPal" tab in the payment box
+// Flips between Monthly and Annual billing. Updates every price shown on
+// the Plans section and the toggle switch itself.
+function toggleBilling() {
+  billingCycle = billingCycle === 'monthly' ? 'annual' : 'monthly';
+
+  document.getElementById('billingSwitch').classList.toggle('on', billingCycle === 'annual');
+  document.getElementById('billingLabelMonthly').classList.toggle('active', billingCycle === 'monthly');
+  document.getElementById('billingLabelAnnual').classList.toggle('active', billingCycle === 'annual');
+
+  document.querySelectorAll('.price-amount').forEach(function (el) {
+    el.textContent = billingCycle === 'annual' ? el.dataset.annual : el.dataset.monthly;
+  });
+  document.querySelectorAll('.plan-period').forEach(function (el) {
+    el.textContent = billingCycle === 'annual' ? 'per month, billed annually' : 'per month';
+  });
+}
+
+// Called by the Enterprise and Custom Package buttons instead of sending
+// the customer straight to checkout. Opens WhatsApp with a pre-filled
+// message so you can scope the work and agree a price before anything
+// is paid — the right pattern for anything that isn't a fixed, self-serve
+// plan, and especially for Enterprise's 24/7 / unlimited promises, which
+// deserve a real conversation before they're sold to anyone.
+function requestCustomQuote(planName) {
+  const message = "Hi North SOC! I'm interested in the " + planName + ". Could we discuss scope and pricing?";
+  const whatsappLink = 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(message);
+  window.open(whatsappLink, '_blank');
+}
+
+// Switches between the "Card" tab and the "Payoneer" tab in the payment box
 function switchPaymentTab(tabName, clickedButton) {
   document.querySelectorAll('.payment-panel').forEach(function (panel) {
     panel.classList.remove('active');
@@ -98,17 +173,14 @@ function switchPaymentTab(tabName, clickedButton) {
   clickedButton.classList.add('active');
 }
 
-// Called when "Continue to Secure Checkout" or "Continue with PayPal" is
-// clicked. Works out which plan is selected, opens the matching PayPal
-// link in a new tab, then opens WhatsApp so the client can confirm the
-// payment with you directly.
+// Called when "Continue to Secure Checkout" or "Continue with Payoneer" is
+// clicked. Looks up the right Payoneer link for the selected plan AND the
+// currently selected billing cycle (monthly/annual), opens it in a new
+// tab, then opens WhatsApp so the client can confirm the payment with
+// you directly.
 function startPayment() {
   const selectedPlan = document.getElementById('selectedPlanField').value;
-
-  let paymentLink = CONFIG.payments.professional; // fallback if nothing matches
-  if (selectedPlan.indexOf('Starter') !== -1)      paymentLink = CONFIG.payments.starter;
-  if (selectedPlan.indexOf('Professional') !== -1) paymentLink = CONFIG.payments.professional;
-  if (selectedPlan.indexOf('Enterprise') !== -1)   paymentLink = CONFIG.payments.enterprise;
+  const paymentLink = CONFIG.payments[billingCycle][selectedPlanKey];
 
   showToast('Redirecting to secure checkout...');
   window.open(paymentLink, '_blank');
@@ -600,7 +672,7 @@ const legalPages = {
       <p class="modal-text">By accessing the North SOC website, subscribing to any plan, or using any of our services, you agree to be bound by these Terms of Service. If you do not agree, do not use our services.</p>
 
       <div class="modal-section-title">2. Services</div>
-      <p class="modal-text">North Security Operations Center provides remote cybersecurity monitoring, threat detection, phishing analysis, OSINT investigations, incident reporting, and advisory services. Services currently available are listed on our website. Services marked "Coming Soon" are not yet available.</p>
+      <p class="modal-text">North provides IT support and services — computer setup, technical troubleshooting, networking, software maintenance, and local data backup. Cybersecurity monitoring and SOC services are in development and will launch as a separate service line. Services currently available are listed on our website. Services marked "Coming Soon" are not yet available.</p>
 
       <div class="modal-section-title">3. Eligibility</div>
       <p class="modal-text">You must be at least 18 years old and legally capable of entering binding contracts. By subscribing, you confirm you have legal authority to enter this agreement.</p>
@@ -637,7 +709,7 @@ const legalPages = {
       <table class="modal-table">
         <tr><th>Type</th><th>Data</th><th>Purpose</th></tr>
         <tr><td>Contact</td><td>Name, email, company</td><td>To respond and deliver services</td></tr>
-        <tr><td>Payment</td><td>Billing name, country</td><td>To process payments (card data handled by PayPal)</td></tr>
+        <tr><td>Payment</td><td>Billing name, country</td><td>To process payments (card data handled by Payoneer)</td></tr>
         <tr><td>Service</td><td>System logs, alerts</td><td>To deliver monitoring services</td></tr>
         <tr><td>Usage</td><td>IP, pages visited</td><td>Analytics (with consent only)</td></tr>
       </table>
