@@ -22,6 +22,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="North — reliable IT support and services for small businesses. Computer setup, troubleshooting, networking, and backups. Security monitoring coming soon. Plans from $150/month." />
   <meta name="theme-color" content="#0a0b0f" />
+
+  <!-- SECURITY — these two headers are the only ones a browser honors
+       when set via <meta> tag (no server config needed, works on GitHub
+       Pages as-is). The rest (X-Frame-Options, HSTS, nosniff) need a
+       real HTTP header from the hosting layer — see the security audit
+       notes in the chat for how to add those if you move to Cloudflare. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://formspree.io; img-src 'self' data:; base-uri 'self'; form-action 'self' https://formspree.io;" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
   <title>North — IT Support &amp; Services</title>
 
   <!-- Google Fonts: Syne for big headings, JetBrains Mono for everything else -->
